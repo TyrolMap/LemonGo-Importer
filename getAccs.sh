@@ -14,7 +14,7 @@ Usage: $(basename "$0") [-h] [-c -t]
   -a
     The maximum age of accounts that would get pulled (default=4)
   -s
-    The Script to run (e.g. -s "python3.6  /pathToMonocle/scripts/import_accounts.py --level 30 %FILE%" !Make shure to include %FILE%)
+    The Script to run (e.g. -s "python3.6  /pathToMonocle/scripts/import_accounts.py --level 30 %FILE%") Make shure to include %FILE%!)
 END
 }
 
