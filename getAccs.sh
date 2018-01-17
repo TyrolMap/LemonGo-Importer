@@ -42,7 +42,7 @@ function getAccs () {
 ## Init ##
 GETCOUNT=0
 KEY="none"
-MINTIME=10
+MINTIME=12
 MAXAGE=3
 SCRIPT="none"
 while getopts "h c:k:a:t:s:" opts; do
