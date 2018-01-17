@@ -117,6 +117,7 @@ then
        exit
     fi
     getAccs
-
+  else
+    echo "Not enough accs - Waiting for new ones"
   fi
 fi
