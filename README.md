@@ -12,7 +12,7 @@ Run `chmod +x LemonGo-Importer/getAccs.sh`
 ### 3. Run script manually for testing 
 Run: <br>
 `/PathToScript/getAccs -c "#NumberOfAccs#" -k "#YourAPIKey#" -s "python3.6 /PathToMonocle/Scripts/import_accounts.py --level 30 %FILE%"`<br>
-(Replace all values between #...# and fix paths, get more information about flags via `/PathToScript/getAccs -h`)
+(Replace all values between #...# and fix paths, get more information about flags via `/PathToScript/getAccs -h`, Do NOT replace %FILE%!)
 
 ### 4. Add script to crontab
 Add crontab via `crontab -e` and add a new line `*/15 * * * * #SCRIPT#`<br>
