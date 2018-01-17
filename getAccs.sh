@@ -95,10 +95,10 @@ then
     LASTPULL=$(cat $SCRIPTDIR)
   fi
 
-  COUNT="$(curl http://ptc.shuffletanker.com/Lemon/GetOldestTimestamp?count=$GETCOUNT -s)"
+  COUNT="$(curl http://ptc.shuffletanker.com/Lemon/GetStock -s)"
   if [ $COUNT -ge $GETCOUNT ] # Check if enough accs to pull
   then
-    DATE="$(curl http://ptc.shuffletanker.com/Lemon/GetLatestTimestamp -s)" 
+    DATE="$(curl http://ptc.shuffletanker.com/Lemon/GetOldestTimestamp?count=$GETCOUNT  -s)"
     TIMESTAMP="$(date --utc -d "$DATE" "+%s")"
     TIMESTAMPNOW="$(date --utc "+%s")"
     TIMESINCELAST=$[$TIMESTAMPNOW - $TIMESTAMP]
