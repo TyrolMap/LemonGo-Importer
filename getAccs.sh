@@ -30,8 +30,10 @@ function getAccs () {
       DATA=${DATA//\"\}/}
       DATA=${DATA//;/\\n}
       TEMPDIR="$DIR/tmp.txt"
+      BACKUPDIR="$DIR/pulled_accs.txt"
       SCRIPT=${SCRIPT//#FILE#/$TEMPDIR}
       echo -e "$DATA" > "$TEMPDIR"
+      echo -e "$DATA" >> "$BACKUPDIR"
       $($SCRIPT > /dev/null 2>&1)
       echo "$TIMESTAMPNOW" > "$SCRIPTDIR"
       rm -f $TEMPDIR
