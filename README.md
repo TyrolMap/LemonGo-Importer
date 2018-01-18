@@ -10,11 +10,11 @@ Load script via `git pull` or download it manualy
 Run `chmod +x LemonGo-Importer/getAccs.sh`
 
 ### 3. Run script manually for testing 
-The following script will load x accounts every 12h with a maximum age of 3h: <br>
-`/PathToScript/getAccs -c "#NumberOfAccs#" -k "#YourAPIKey#" -s "python3.6 /PathToMonocle/Scripts/import_accounts.py --level 30 %FILE%"`<br>
-(Replace all values between #...# and fix paths, get more information about flags with `/PathToScript/getAccs -h`, Do NOT replace %FILE%!)
+The following script will load x accounts every 10h with a maximum age of 3h: <br>
+`/PathToScript/getAccs -c "=NumberOfAccs=" -k "=YourAPIKey=" -s "python3.6 /PathToMonocle/Scripts/import_accounts.py --level 30 #FILE#"`<br>
+(Replace all values between =...= and fix paths, get more information about flags with `/PathToScript/getAccs -h`, Do NOT replace #FILE#!)
 
 ### 4. Add script to crontab
 Add crontab via `crontab -e` and add a new line: <br>
-`*/15 * * * * #SCRIPT#`<br>
+`*/15 * * * * =SCRIPT=`<br>
 (Releace #SCRIPT# with the script you testet in step 3)
