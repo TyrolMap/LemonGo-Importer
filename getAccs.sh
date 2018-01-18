@@ -100,22 +100,23 @@ then
     LASTPULL=$(cat $SCRIPTDIR)
   fi
 
+  TIMESTAMPNOW="$(date --utc "+%s")"
+  AGE=$[$TIMESTAMPNOW - $LASTPULL]
+  MINTIMEHOUR=$[3600 * $MINTIME]
+  if (( !$LASTPULL == "none" )) && (( $AGE < $MINTIMEHOUR )) # To early. Waiting
+    then
+    echo "[$LOGTIME] Recently Pulled - Nothing to do yet"
+    exit
+  fi
+
   COUNT="$(curl http://ptc.shuffletanker.com/Lemon/GetStock -s)"
   if [ $COUNT -ge $GETCOUNT ] # Check if enough accs to pull
   then
     DATE="$(curl http://ptc.shuffletanker.com/Lemon/GetOldestTimestamp?count=$GETCOUNT  -s)"
     TIMESTAMP="$(date --utc -d "$DATE" "+%s")"
-    TIMESTAMPNOW="$(date --utc "+%s")"
     TIMESINCELAST=$[$TIMESTAMPNOW - $TIMESTAMP]
-    AGE=$[$TIMESTAMPNOW - $LASTPULL]
     MAXAGEHOUR=$[3600 * $MAXAGE]
-    MINTIMEHOUR=$[3600 * $MINTIME]
 
-    if (( !$LASTPULL == "none" )) && (( $AGE < $MINTIMEHOUR )) # To early. Waiting
-    then
-       echo "[$LOGTIME] Recently Pulled - Nothing to do yet"
-       exit
-    fi
     if (( $TIMESINCELAST > $MAXAGEHOUR )) # Check if accs are older than max age
     then
        echo "[$LOGTIME] Accs are old - Waiting for new ones"
