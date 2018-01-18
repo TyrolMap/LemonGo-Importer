@@ -21,7 +21,9 @@ END
 ## func - Loads Accoutns and run import script
 function getAccs () {
     URL="http://ptc.shuffletanker.com/Lemon/GetLevel30?extraction_API=$KEY&amount=$GETCOUNT"
+    BACKUPDIR="$DIR/api.log"
     DATA="$(curl $URL -s)"
+    echo -e "$DATA" > "$BACKUPDIR"
     if [[ $DATA == *"\"ok\":false"* ]]
     then
       echo "[$LOGTIME] Failed to get accs"
