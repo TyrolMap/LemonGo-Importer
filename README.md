@@ -4,7 +4,7 @@ A simple bash script that imports Level 30 PokemonGo account from LemonGo's Mapp
 ## Installation
 
 ### 1. Download script
-Load script via `git fetch https://github.com/TyrolMap/LemonGo-Importer` or download it manualy
+Load script via `git clone https://github.com/TyrolMap/LemonGo-Importer` or download it manualy
 
 ### 2. Fix permissions
 Run `chmod +x LemonGo-Importer/getAccs.sh`
