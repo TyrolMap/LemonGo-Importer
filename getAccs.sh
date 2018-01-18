@@ -14,7 +14,7 @@ Usage: $(basename "$0") [-h] [-c -t]
   -a
     The maximum age of accounts that would get pulled (default=4)
   -s
-    The Script to run (e.g. -s "python3.6  /pathToMonocle/scripts/import_accounts.py --level 30 %FILE%") Make shure to include %FILE%!)
+    The Script to run (e.g. -s "python3.6  /pathToMonocle/scripts/import_accounts.py --level 30 #FILE#") Make shure to include #FILE#!)
 END
 }
 
@@ -24,25 +24,30 @@ function getAccs () {
     DATA="$(curl $URL -s)"
     if [[ $DATA == *"\"ok\":false"* ]]
     then
-      echo "Failed to get accs"
+      echo "[$LOGTIME] Failed to get accs"
     else
       DATA=${DATA//\{\"ok\":true,\"message\":\"/}
       DATA=${DATA//\"\}/}
       DATA=${DATA//;/\\n}
       TEMPDIR="$DIR/tmp.txt"
-      SCRIPT=${SCRIPT//%FILE%/$TEMPDIR}
+      SCRIPT=${SCRIPT//#FILE#/$TEMPDIR}
       echo -e "$DATA" > "$TEMPDIR"
       $($SCRIPT > /dev/null 2>&1)
       echo "$TIMESTAMPNOW" > "$SCRIPTDIR"
       rm -f $TEMPDIR
-      echo "Reloaded Accs"
+      echo "[$LOGTIME] Reloaded Accs"
+
+      LOGDIR="$DIR/reload.log"
+      echo "$LOGTIME" >> "$LOGDIR"
+
     fi
 }
 
 ## Init ##
+LOGTIME=$(date)
 GETCOUNT=0
 KEY="none"
-MINTIME=12
+MINTIME=10
 MAXAGE=3
 SCRIPT="none"
 while getopts "h c:k:a:t:s:" opts; do
@@ -108,16 +113,16 @@ then
 
     if (( !$LASTPULL == "none" )) && (( $AGE < $MINTIMEHOUR )) # To early. Waiting
     then
-       echo "Recently Pulled - Nothing to do yet"
+       echo "[$LOGTIME] Recently Pulled - Nothing to do yet"
        exit
     fi
     if (( $TIMESINCELAST > $MAXAGEHOUR )) # Check if accs are older than max age
     then
-       echo "Accs are old - Waiting for new ones"
+       echo "[$LOGTIME] Accs are old - Waiting for new ones"
        exit
     fi
     getAccs
   else
-    echo "Not enough accs - Waiting for new ones"
+    echo "[$LOGTIME] Not enough accs - Waiting for new ones"
   fi
 fi
