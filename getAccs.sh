@@ -36,10 +36,11 @@ function getAccs () {
       SCRIPT=${SCRIPT//#FILE#/$TEMPDIR}
       echo -e "$DATA" > "$TEMPDIR"
       echo -e "$DATA" >> "$BACKUPDIR"
-      $($SCRIPT > /dev/null 2>&1)
+      echo "[$LOGTIME] Reloading Accs..."
+      $($SCRIPT)
+      echo "[$LOGTIME] Reloaded Accs"
       echo "$TIMESTAMPNOW" > "$SCRIPTDIR"
       rm -f $TEMPDIR
-      echo "[$LOGTIME] Reloaded Accs"
 
       LOGDIR="$DIR/reload.log"
       echo "$LOGTIME" >> "$LOGDIR"
