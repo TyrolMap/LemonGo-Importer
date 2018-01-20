@@ -37,7 +37,7 @@ function getAccs () {
       echo -e "$DATA" > "$TEMPDIR"
       echo -e "$DATA" >> "$BACKUPDIR"
       echo "[$LOGTIME] Reloading Accs..."
-      $($SCRIPT)
+      $SCRIPT
       echo "[$LOGTIME] Reloaded Accs"
       echo "$TIMESTAMPNOW" > "$SCRIPTDIR"
       rm -f $TEMPDIR
